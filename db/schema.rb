@@ -10,13 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_13_020320) do
-
-  create_table "accesses", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
+ActiveRecord::Schema.define(version: 2020_08_13_064507) do
 
   create_table "appointments", force: :cascade do |t|
     t.string "from_time"
@@ -26,15 +20,27 @@ ActiveRecord::Schema.define(version: 2020_08_13_020320) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "behavioral_therapists", force: :cascade do |t|
-    t.integer "bi_id"
+  create_table "bis", force: :cascade do |t|
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "clients", force: :cascade do |t|
+  create_table "casebis", force: :cascade do |t|
+    t.integer "bi_id"
+    t.string "case_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "cases", force: :cascade do |t|
+    t.integer "pc_id"
     t.integer "client_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "clients", force: :cascade do |t|
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -46,8 +52,7 @@ ActiveRecord::Schema.define(version: 2020_08_13_020320) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "program_coordinators", force: :cascade do |t|
-    t.integer "pc_id"
+  create_table "pcs", force: :cascade do |t|
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -75,6 +80,7 @@ ActiveRecord::Schema.define(version: 2020_08_13_020320) do
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "email"
+    t.string "type"
     t.string "first_name"
     t.string "last_name"
     t.datetime "created_at", precision: 6, null: false

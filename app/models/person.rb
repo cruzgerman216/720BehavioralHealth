@@ -1,3 +1,0 @@
-class Person < User
-
-end

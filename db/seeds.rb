@@ -6,15 +6,20 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-client = User.create( email: "clientemail123@email.com", username: "client_username", first_name: "client first name", last_name: "client last name")
+c = Client.create( email: "clientemail123@email.com", username: "client_username", first_name: "client first name", last_name: "client last name")
 
-behavioral_therapist = User.create(email: "biemail123@email.com", first_name: "bi first name", last_name: "bi last name")
-program_coordinator = User.create( email: "pcemail123@email.com",  first_name: "pc first name", last_name: "pc last name")
+bi = Bi.create(email: "biemail123@email.com", first_name: "bi first name", last_name: "bi last name")
+pc = Pc.create( email: "pcemail123@email.com",  first_name: "pc first name", last_name: "pc last name")
 
-c = Client.create(user_id: behavioral_therapist.id, client_id: client.id)
-bi = BehavioralTherapist.create(bi_id: behavioral_therapist.id, user_id: client.id)
-pc1 = ProgramCoordinator.create(pc_id: program_coordinator.id, user_id: behavioral_therapist.id)
-pc2 = ProgramCoordinator.create(pc_id: 3, user_id: 1)
+bi2 = Bi.create(email: "bi2", first_name: "bi2 first name", last_name: "bi2 last name")
+
+case1 = Case.create(pc: pc, client: c) 
+casebi = Casebi.create(case: case1, bi:bi)
+casebi2 = Casebi.create(case: case1, bi:bi2)
+
+
+
+# b_i = Bi.create(user: bi)
 
 # case.create(pc, c)
 
