@@ -6,16 +6,41 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-c = Client.create( email: "clientemail123@email.com", username: "client_username", first_name: "client first name", last_name: "client last name")
+User.create( email: "test@test.com", username: "test", first_name: "test", last_name: "test", password: "test", role:0)
 
-bi = Bi.create(email: "biemail123@email.com", first_name: "bi first name", last_name: "bi last name")
-pc = Pc.create( email: "pcemail123@email.com",  first_name: "pc first name", last_name: "pc last name")
+c = User.create( email: "clientemail123@email.com", username: "client_username", first_name: "client first name", last_name: "client last name", password: "test", role:2)
+c2 = User.create( email: "clientemail2@email.com", username: "client_username2", first_name: "client2 first name", last_name: "client2 last name", password: "test", role:2)
 
-bi2 = Bi.create(email: "bi2", first_name: "bi2 first name", last_name: "bi2 last name")
+bi = User.create(email: "biemail123@email.com", username: "bi_username",first_name: "bi first name", last_name: "bi last name", password: "test", role: 1)
+pc = User.create( email: "pcemail123@email.com",  username: "pc_username",first_name: "pc first name", last_name: "pc last name", password: "test", role:0)
 
-case1 = Case.create(pc: pc, client: c) 
-casebi = Casebi.create(case: case1, bi:bi)
-casebi2 = Casebi.create(case: case1, bi:bi2)
+bi2 = User.create(email: "bi2", first_name: "bi2 first name", username: "bi2_username",last_name: "bi2 last name", password: "test", role:1)
+
+case1 = Case.create(pc: pc, client: c, bi: bi) 
+[c,pc,bi].each{ |user|
+Casebi.create(case: case1,user_id: user.id)
+}
+case2 = Case.create(pc: pc, client: c2, bi: bi) 
+[c2,pc,bi].each{ |user|
+Casebi.create(case: case1,user_id: user.id)
+}
+a = Appointment.create(case: case1)
+# Appointmentcase.create(case: case1, appointment: a)
+a2 = Appointment.create(case: case1)
+# Appointmentcase.create(case: case2, appointment: a2)
+
+content = "I arrived to session late today!"
+content_bi = "Client arrived late to session today."
+Comment.create(content: content, appointment:a, user: c)
+Comment.create(content: content_bi, appointment:a, user: bi)
+
+content = "Awesome work!!"
+content_bi = "Struggle with words today!."
+Comment.create(content: content, appointment:a2, user: c2)
+Comment.create(content: content_bi, appointment:a2, user: bi)
+# adding more bis to the case
+# casebi = Casebi.create(case: case1, bi:bi)
+# casebi2 = Casebi.create(case: case1, bi:bi2)
 
 
 

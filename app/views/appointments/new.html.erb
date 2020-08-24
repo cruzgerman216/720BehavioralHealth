@@ -1,0 +1,46 @@
+<% if @case%>
+<h1>New Appointment for Case #<%=@case.id%></h1>
+
+<%else%>
+<h1>New Appointment  </h1>
+
+<% if @appointment.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@appointment.errors.count, "error") %> prohibited this article from being saved:</h2>
+ 
+    <ul>
+    <% @appointment.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%end%>
+<%= form_for([@case,@appointment]) do |f| %>
+
+    <%if !@case%>
+    <label>Case</label>
+    <%= f.collection_select :case_id, Case.all, :id, :id%>
+
+    <%else%>
+    <%= f.hidden_field :case_id%>
+    <%end%>
+    <br>
+    <%= f.label :from_time %>
+    <%= f.time_field :from_time, value: "%H:%M", min: 'hh:mm:ss',max: 'hh:mm:ss'%>
+    <br>
+
+    <%= f.label :to_time %>
+    <%= f.time_field :to_time, value: "%H:%M", min: 'hh:mm:ss',max: 'hh:mm:ss'%>
+    <br>
+
+    <%= f.label :date %>
+    <%= f.date_select :date %>
+    <br>
+
+    <%= f.submit %>
+
+<%end%>
+
+<%# add a form that will grab the user information, this can be a nested url of course to make it easier or you can use current user for right now%>

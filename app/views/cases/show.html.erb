@@ -1,0 +1,13 @@
+
+    <h2>Case #<%=@case.id%></h2>
+    <b>Client: <%=@case.client.first_name%> <%=@case.client.last_name%></b>
+    <br>
+    <b>Program Coordinator: <%=@case.pc.first_name%> <%=@case.pc.last_name%></b>
+    <br>
+    <b>Behavioral Therapist: <%=@case.bi.first_name%> <%=@case.bi.last_name%></b>
+    <br>
+
+    <p><%= link_to 'See all appointments', case_appointments_path(@case) %></p>
+    <p><%= link_to 'Add an appointment', new_case_appointment_path(@case) %></p>
+
+

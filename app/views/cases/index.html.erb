@@ -1,0 +1,10 @@
+<h1>All Cases</h1>
+    <%if @error%>
+<p><%=@error%></p>
+    <%end%>
+<% @cases.each do |c|%>
+    Case Number
+    <%= link_to "Case #{c.id}", case_path(c) %>
+
+<br>
+<%end%>

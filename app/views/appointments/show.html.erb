@@ -1,0 +1,28 @@
+<h1>Appointment</h1>
+
+    <h2>Case #<%=@appointment.case.id%></h2>
+    <b>Client: <%=@appointment.case.client.first_name%> <%=@appointment.case.client.last_name%></b>
+    <br>
+    <b>Program Coordinator: <%=@appointment.case.pc.first_name%> <%=@appointment.case.pc.last_name%></b>
+    <br>
+    <b>Behavioral Therapist: <%=@appointment.case.bi.first_name%> <%=@appointment.case.bi.last_name%></b>
+    <br>
+    <h3>Time</h3>
+    <%=@appointment.from_time%> - <%=@appointment.to_time%>
+    <br>
+    <h3>Date</h3>
+    <%=@appointment.date%>
+
+    <h4>Comments</h4>
+
+    <%@appointment.comments.each do |c|%>
+        <p><b><%=c.user.first_name%></b> <%=c.content%>
+    <%end%>
+
+<%= form_for Comment.new do |f|%>
+    <%= hidden_field_tag 'appointment_id', @appointment.id%>
+    <%= f.label :content %>
+    <%= f.text_area :content%>
+    <br>
+    <%= f.submit "Submit"%>
+<% end %>

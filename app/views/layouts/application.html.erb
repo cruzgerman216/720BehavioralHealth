@@ -10,6 +10,22 @@
   </head>
 
   <body>
+
+    <div> 
+      <% if logged_in?%>
+      <%if current_user.role == "program_coordinator"%>
+
+         <%= link_to "Add new Case", new_case_path%>
+         <%= link_to "Add new Appointment", new_appointment_path%>
+      <%end%>
+      <%= link_to "All Appointments", appointments_path%>
+         <%= link_to "All cases", cases_path%>
+        <%= link_to "Logout", logout_path, method: "delete"%>
+      <%else%>
+        <%=link_to "Sign Up", signup_path%>
+        <%= link_to "Log In", login_path%>
+      <%end%>
+    </div>
     <%= yield %>
   </body>
 </html>
