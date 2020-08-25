@@ -4,7 +4,7 @@
     <%end%>
 <% @cases.each do |c|%>
     Case Number
-    <%= link_to "Case #{c.id}", case_path(c) %>
+    <%= link_to "Case #{c.id}", case_path(c) %> <%=c.client.last_name%> <%=c.client.first_name%>
 
 <br>
 <%end%>

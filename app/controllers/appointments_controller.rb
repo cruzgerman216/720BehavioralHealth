@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-    # before_action :redirect_if_not_logged_in
+     before_action :redirect_if_not_logged_in
 
     def new 
         if params[:case_id] && @case = Case.find_by_id(params[:case_id])
@@ -11,7 +11,9 @@ class AppointmentsController < ApplicationController
 
     def create 
         # @psot = current_user.posts.build(post_params)
-        client_case = Case.find(params[:case_id])
+        client_case =  Case.find(params[:appointment][:case_id])
+        # client_case = Case.find(params[:case_id]) || Case.find(params[:appointment][:case_id])
+      
         @appointment = client_case.appointments.build(appointment_params)
         if @appointment.save 
             redirect_to case_appointments_path(@appointment.case)
@@ -22,7 +24,13 @@ class AppointmentsController < ApplicationController
 
     def index 
         # @appointment = current_user.appointments
-        @appointments = Appointment.all
+        if params[:case_id] && @case = Case.find_by_id(params[:case_id])
+            @appointments = @case.appointments.order_by_date
+        else 
+            @error = "This user does not exist" if params[:case_id]
+            @appointments = Appointment.order_by_date
+        end
+        
     end
 
     def show

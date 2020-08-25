@@ -1,4 +1,5 @@
 class CasesController < ApplicationController
+
     def new 
         @users = User.all
         @case = Case.new
@@ -6,6 +7,10 @@ class CasesController < ApplicationController
     def show 
         @case = Case.find(params[:id])
     end
+
+    # def category_attributes=(attr)
+    #     self.category = Category_or_create_by(attr) if !attr[:name].blank?
+    # end
 
     def create 
         @case = Case.new(case_params)
@@ -22,11 +27,10 @@ class CasesController < ApplicationController
 
     def index 
         if params[:user_id] && @user = User.find_by_id(params[:user_id])
-            @cases = @user.cases
+            @cases = @user.cases.order_by_last_name
         else 
-            puts "TESSSSSSSSSSST"
             @error = "This user does not exist" if params[:user_id]
-            @cases = Case.all
+            @cases = Case.order_by_last_name
         end
     end
 

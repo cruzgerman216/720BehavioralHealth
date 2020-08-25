@@ -8,7 +8,7 @@
 
 User.create( email: "test@test.com", username: "test", first_name: "test", last_name: "test", password: "test", role:0)
 
-c = User.create( email: "clientemail123@email.com", username: "client_username", first_name: "client first name", last_name: "client last name", password: "test", role:2)
+c = User.create( email: "clientemail123@email.com", username: "client_username", first_name: "zclient first name", last_name: "zclient last name", password: "test", role:2)
 c2 = User.create( email: "clientemail2@email.com", username: "client_username2", first_name: "client2 first name", last_name: "client2 last name", password: "test", role:2)
 
 bi = User.create(email: "biemail123@email.com", username: "bi_username",first_name: "bi first name", last_name: "bi last name", password: "test", role: 1)
@@ -24,9 +24,9 @@ case2 = Case.create(pc: pc, client: c2, bi: bi)
 [c2,pc,bi].each{ |user|
 Casebi.create(case: case1,user_id: user.id)
 }
-a = Appointment.create(case: case1)
+a = Appointment.create(case: case1, from_time: "2000-02-54 16:04:23", to_time: "2000-01-01 20-05-05", date:"2020-05-13")
 # Appointmentcase.create(case: case1, appointment: a)
-a2 = Appointment.create(case: case1)
+a2 = Appointment.create(case: case1, from_time: "2000-02-54 23:24:23", to_time: "2000-01-01 14-05-07", date:"2020-06-13")
 # Appointmentcase.create(case: case2, appointment: a2)
 
 content = "I arrived to session late today!"

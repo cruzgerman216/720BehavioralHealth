@@ -23,7 +23,7 @@
     <%= f.label :password%>
     <%= f.password_field :password%>
     <br>
-    <%= f.select :role, options_for_select(User.roles.keys.map{|k| [k,k]})%>
+    <%= f.select :role, options_for_select(User.roles.map{|k,v| [k,k]})%>
     <br>
     <%= f.submit "Submit"%>
 <% end %>
