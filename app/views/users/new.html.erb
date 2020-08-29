@@ -1,29 +1,84 @@
-<h1> Sign up</h1>
+ <div
+      class="container"
+      style="
+        margin-top: 10px;
+        width: 28%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      "
+    >
+      <div class="row align-items-center">
+        <div class="col">
+          <form style="border: 1px solid rgb(231, 223, 223); padding: 10px;" action="/signup" method="POST">
+            <input type="hidden" name="profile_img" value="https://pecb.com/conferences/wp-content/uploads/2017/10/no-profile-picture.jpg"/>
+            <h4 style="text-align: center;">720BehavioralHealth</h4>
+
+    <%= form_for(@user, url: '/signup') do |f|%>
 
 
-<%= form_for(@user, url: '/signup') do |f|%>
+        <%= f.label :first_name%>
+        <%= f.text_field :first_name, :class=>'form-control'%>
+        <br>
+        <%= f.label :last_name%>
+        <%= f.text_field :last_name, :class=>'form-control'%>
+        <br>
+        <%= f.label :username%>
+        <%= f.text_field :username, :class=>'form-control'%>
+        <br>
 
+        <%= f.label :email%>
+        <%= f.email_field :email, :class=>'form-control'%>
+        <br>
 
-    <%= f.label :first_name%>
-    <%= f.text_field :first_name%>
-    <br>
+        <%= f.label :password%>
+        <%= f.password_field :password, :class=>'form-control'%>
+        <br>
 
-    <%= f.label :last_name%>
-    <%= f.text_field :last_name%>
-    <br>
-
-    <%= f.label :username%>
-    <%= f.text_field :username%>
-    <br>
-
-    <%= f.label :email%>
-    <%= f.email_field :email%>
-    <br>
-
-    <%= f.label :password%>
-    <%= f.password_field :password%>
-    <br>
-    <%= f.select :role, options_for_select(User.roles.map{|k,v| [k,k]})%>
-    <br>
-    <%= f.submit "Submit"%>
-<% end %>
+        <label>Role</label>
+        <br>
+        <div class="btn-group dropright">
+             <%= f.select :role, options_for_select(User.roles.map{|k,v| [k,k]}), {class:'btn btn-secondary dropdown-toggle'}%>
+        </div>
+        <br>
+        <br>
+        <%= f.submit "Submit", :class=>'btn btn-primary', :style => 'justify-content: center;'%>
+                    <small
+              style="text-align: center;"
+              id="emailHelp"
+              class="form-text text-muted"
+              >By signing up, you agree to our Terms, Data Policy and Cookies
+              Policy.</small
+            >
+    <% end %>
+          <div
+            style="
+              border: 1px solid rgb(231, 223, 223);
+              padding: 10px;
+              text-align: center;
+              margin-top: 15px;
+            "
+          >
+            <p>
+              Have an account?
+                        <%= link_to "Log In", login_path%>
+            </p>
+          </div>
+                    <div
+            style="
+              border: 1px solid rgb(231, 223, 223);
+              padding: 10px;
+              text-align: center;
+              margin-top: 15px;
+            "
+          >
+            <p>
+                    <%= link_to "Log In With Google", "/auth/google_oauth2"%>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div style="padding: 10px; text-align: center; margin-top: 15px;">
+       <p style="font-size: 12px; color: rgb(205, 207, 207);">&#169; 2020 720BehavioralHealth Made By GERMAN CRUZ</p>
+      </div>
+    </div>

@@ -6,54 +6,41 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create( email: "test@test.com", username: "test", first_name: "test", last_name: "test", password: "test", role:0)
+u = User.create( email: "test@test.com", username: "test", first_name: "German", last_name: "Cruz", password: "test", role:0)
 
-c = User.create( email: "clientemail123@email.com", username: "client_username", first_name: "zclient first name", last_name: "zclient last name", password: "test", role:2)
-c2 = User.create( email: "clientemail2@email.com", username: "client_username2", first_name: "client2 first name", last_name: "client2 last name", password: "test", role:2)
+c = User.create( email: "emilyrose134@email.com", username: "emilyrose123", first_name: "Emily", last_name: "Rose", password: "test", role:2)
+c2 = User.create( email: "jakefromstatefarm@email.com", username: "jakefromstatefarm", first_name: "Jake", last_name: "Robinson", password: "test", role:2)
+User.create( email: "Jacob@email.com", username: "Jacob65453", first_name: "Jacob", last_name: "Henderson", password: "test", role:2)
+User.create( email: "Luke576@email.com", username: "luke345", first_name: "Luke", last_name: "Jackson", password: "test", role:2)
+User.create( email: "jimmy453@email.com", username: "jimmy5425", first_name: "Jimmy", last_name: "Zamora", password: "test", role:2)
 
-bi = User.create(email: "biemail123@email.com", username: "bi_username",first_name: "bi first name", last_name: "bi last name", password: "test", role: 1)
-pc = User.create( email: "pcemail123@email.com",  username: "pc_username",first_name: "pc first name", last_name: "pc last name", password: "test", role:0)
 
-bi2 = User.create(email: "bi2", first_name: "bi2 first name", username: "bi2_username",last_name: "bi2 last name", password: "test", role:1)
+bi = User.create(email: "Amy543@email.com", username: "Amy1243",first_name: "Amy", last_name: "Cho", password: "test", role: 1)
+pc = User.create( email: "Sarah@email.com",  username: "sarah3252",first_name: "Sarah", last_name: "Miller", password: "test", role:0)
+
+bi2 = User.create(email: "mike64562@email.com", first_name: "Mike", username: "mike5354",last_name: "Lopez", password: "test", role:1)
 
 case1 = Case.create(pc: pc, client: c, bi: bi) 
-[c,pc,bi].each{ |user|
-Casebi.create(case: case1,user_id: user.id)
-}
+# [c,pc,bi].each{ |user|
+# Casebi.create(case: case1,user_id: user.id)
+# }
 case2 = Case.create(pc: pc, client: c2, bi: bi) 
-[c2,pc,bi].each{ |user|
-Casebi.create(case: case1,user_id: user.id)
-}
-a = Appointment.create(case: case1, from_time: "2000-02-54 16:04:23", to_time: "2000-01-01 20-05-05", date:"2020-05-13")
-# Appointmentcase.create(case: case1, appointment: a)
-a2 = Appointment.create(case: case1, from_time: "2000-02-54 23:24:23", to_time: "2000-01-01 14-05-07", date:"2020-06-13")
-# Appointmentcase.create(case: case2, appointment: a2)
+# [c2,pc,bi].each{ |user|
+# Casebi.create(case: case2,user_id: user.id)
+# }
+ a = case1.appointments.create(case: case1, from_time: Time.new, to_time: Time.new, date:Date.new)
+
+a2 = case2.appointments.create(case: case2, from_time: Time.new, to_time: Time.new, date:Date.new)
 
 content = "I arrived to session late today!"
 content_bi = "Client arrived late to session today."
-Comment.create(content: content, appointment:a, user: c)
-Comment.create(content: content_bi, appointment:a, user: bi)
+Comment.create(content: content, appointment: a, user: c)
+Comment.create(content: content_bi, appointment: a2, user: bi)
 
 content = "Awesome work!!"
 content_bi = "Struggle with words today!."
-Comment.create(content: content, appointment:a2, user: c2)
-Comment.create(content: content_bi, appointment:a2, user: bi)
+Comment.create(content: content, appointment:case2.appointments[0], user: c2)
+Comment.create(content: content_bi, appointment:case2.appointments[0], user: bi)
 # adding more bis to the case
-# casebi = Casebi.create(case: case1, bi:bi)
-# casebi2 = Casebi.create(case: case1, bi:bi2)
 
-
-
-# b_i = Bi.create(user: bi)
-
-# case.create(pc, c)
-
-# case_bi.create(c, bi)
-
-# bi.cases 
-# c.cases 
-# pc.cases 
-
-# case.bis 
-# case.pc 
-# case.c
+# <%= f.collection_select :case_id, Case.all, :id, :id%>

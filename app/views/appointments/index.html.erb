@@ -1,5 +1,4 @@
 <h1>All Appointments</h1>
-
 <% @appointments.each do |a|%>
     Case #<%= a.case.id %>
     <br>
@@ -12,15 +11,14 @@
     <b>Behavioral Therapist: <%=a.case.bi.first_name%> <%=a.case.bi.last_name%></b>
     <br>
     <h3>Time</h3>
-    <%=a.from_time%> - <%=a.to_time%>
+    <%=a.from_time.strftime("%I:%M %p")%> - <%=a.to_time.strftime("%I:%M %p")  %>
     <br>
     <h3>Date</h3>
-    <%=a.date%>
-
+    <%=a.date.strftime("%m/%d/%Y")%>
     <h4>Comments</h4>
 
-    <%a.comments.each do |c|%>
-        <p><b><%=c.user.first_name%></b> <%=c.content%>
+    <% a.comments.each do |c|%>
+        <p><b><%=c.user.first_name%></b> <%=c.content%></p>
     <%end%>
 
 <%end%>

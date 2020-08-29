@@ -10,12 +10,11 @@ class AppointmentsController < ApplicationController
     end
 
     def create 
-        # @psot = current_user.posts.build(post_params)
         client_case =  Case.find(params[:appointment][:case_id])
-        # client_case = Case.find(params[:case_id]) || Case.find(params[:appointment][:case_id])
-      
         @appointment = client_case.appointments.build(appointment_params)
         if @appointment.save 
+            @appointment.comments.build(content:"",user:client_case.bi).save
+            @appointment.comments.build(content:"",user: client_case.client).save
             redirect_to case_appointments_path(@appointment.case)
         else
             render :new
@@ -23,9 +22,8 @@ class AppointmentsController < ApplicationController
     end
 
     def index 
-        # @appointment = current_user.appointments
-        if params[:case_id] && @case = Case.find_by_id(params[:case_id])
-            @appointments = @case.appointments.order_by_date
+        if @object = Case.find_by_id(params[:case_id]) || User.find_by_id(params[:user_id])
+            @appointments = @object.appointments.order_by_date
         else 
             @error = "This user does not exist" if params[:case_id]
             @appointments = Appointment.order_by_date
@@ -34,7 +32,6 @@ class AppointmentsController < ApplicationController
     end
 
     def show
-        puts params
         @appointment = Appointment.find(params[:id])
     end
 

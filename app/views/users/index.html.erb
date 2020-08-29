@@ -1,0 +1,5 @@
+<h3>All Users</h3>
+<%@users.each do |user|%>
+    <%= link_to user.return_last_to_first_name, user_appointments_path(user)%> <%=user.role%>
+    <br>
+<%end%>

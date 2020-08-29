@@ -8,16 +8,17 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
 
-  # omniauth callback route
   get '/auth/google_oauth2/callback' => 'sessions#googleauth'
 
   delete '/logout' => 'sessions#destroy'
+  
   resources :appointments
   resources :roles
   resources :comments
   
   resources :users do
     resources :cases, only: [:new, :create, :index]
+    resources :appointments, only: [:new, :create, :index]
   end
 
   resources :cases do 

@@ -1,24 +1,26 @@
 <h1>New Case</h1>
 
-<%#you can use @users but i think map is overriding it%>
+<%= render partial: "layouts/errors", locals: {object:@case}%>
+
+<%# make all the User.all.map scopes for grabbing programming coordinators, bis and clients%>
 <%= form_for(@case) do |f| %>
     <label>Available Program Coordinators</label>
         <%= f.select :pc_id, options_for_select(User.all.map{|k,v| 
-        if k.role == "program_coordinator"
+        if k.program_coordinator?
             [k.first_name,k.id] 
         end }.compact)%>
     <br>
 
     <label>Available Behavioral Therapist</label>
         <%= f.select :bi_id, options_for_select(User.all.map{|k,v| 
-        if k.role == "behavioral_therapist"
+        if k.behavioral_therapist?
             [k.first_name,k.id] 
         end }.compact)%>
     <br>
 
         <label>Available Client</label>
         <%= f.select :client_id, options_for_select(User.all.map{|k,v| 
-        if k.role == "client" 
+        if k.client? && k.cases.count == 0
             [k.first_name,k.id] 
         end }.compact)%>
     <br>

@@ -1,9 +1,11 @@
 class SessionsController < ApplicationController
     def home 
+        redirect_if_not_logged_in
     end
+    
     def destroy
         session.clear 
-        redirect_to root_path
+        redirect_to '/login'
     end
 
     def new 
@@ -12,7 +14,6 @@ class SessionsController < ApplicationController
 
     def create 
         user = User.find_by(username: params[:user][:username]) || User.find_by(email: params[:user][:username])
-        # user = User.find_by(username: params[:user][:username]) 
         if user && user.authenticate(params[:user][:password])
             session[:user_id] = user.id
             redirect_to user_path(user)
@@ -27,6 +28,7 @@ class SessionsController < ApplicationController
             user.first_name = auth["info"]["name"].split(" ")[0]
             user.last_name = auth["info"]["name"].split(" ")[1]
             user.password = SecureRandom.hex(10)
+            user.role = "client"
         end
         if @user.save 
             session[:user_id] = @user.id 

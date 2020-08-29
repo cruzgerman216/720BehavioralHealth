@@ -1,24 +1,18 @@
 class CasesController < ApplicationController
 
     def new 
-        @users = User.all
         @case = Case.new
     end
     def show 
         @case = Case.find(params[:id])
     end
 
-    # def category_attributes=(attr)
-    #     self.category = Category_or_create_by(attr) if !attr[:name].blank?
-    # end
-
     def create 
         @case = Case.new(case_params)
-
         if @case.save 
-            [params[:case][:pc_id], params[:case][:bi_id], params[:case][:client_id]].each{ |id|
-            Casebi.create(case: @case,user_id:id)
-        }
+            case_params.each{ |k,v|
+                Casebi.create(case: @case,user_id:v.to_i)
+            }
             redirect_to cases_path
         else
             render :new

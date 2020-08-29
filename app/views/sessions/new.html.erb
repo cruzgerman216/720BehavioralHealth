@@ -1,14 +1,94 @@
-<h1>Login</h1>
+          <div
+          class="container-fluid"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+            width:100%;
+          "
+          > 
+             <div class="row align-items-center">
+             <div class="col-4">
 
 <%= flash[:message] if flash[:message]%>
     
-<%= form_for :user do |f| %>
+<%= form_for :user, :html=>{ :style => 'border: 1px solid rgb(231, 223, 223); padding: 10px;'} do |f| %>
+    <h4 style="text-align: center;">720BehavioralHealth</h4>
     <%= f.label :username%>
-    <%= f.text_field :username%>
-
+    <%= f.text_field :username, :class=>'form-control'%>
     <%= f.label :password%>
-    <%= f.password_field :password%>
+    <%= f.password_field :password, :class=>'form-control'%>
     <br>
-
-    <%= f.submit "Login"%>
+    <div style="text-align:center;"> 
+    <%= f.submit "Login", :class=>'btn btn-primary', :style => 'justify-content: center;'%>
+    </div>
 <% end%>
+
+          <div
+            style="
+              border: 1px solid rgb(231, 223, 223);
+              padding: 10px;
+              text-align: center;
+              margin-top: 15px;
+            "
+          >
+            <p>
+              <%=link_to "Sign Up", signup_path%>
+            </p>
+          </div>
+          
+          <div
+            style="
+              border: 1px solid rgb(231, 223, 223);
+              padding: 10px;
+              text-align: center;
+              margin-top: 15px;
+            "
+          >
+            <p>
+              <%= link_to "Log In With Google", "/auth/google_oauth2"%>
+            </p>
+          </div>
+         <p style="font-size: 12px; color: rgb(205, 207, 207);">&#169; 2020 720BehavioralHealth Made By GERMAN CRUZ</p>
+
+          </div>
+          <div class="col" style="padding:0;" >
+            <div
+            id="carouselExampleSlidesOnly"
+            class="carousel slide"
+            data-ride="carousel"
+          >
+            <div class="carousel-inner"  >
+              <div class="carousel-item active" style="height:100vh;">
+                <img
+                  class="d-block"
+                  height="100%"
+                  src="https://letgrow.org/wp-content/uploads/2018/08/adobe-kid-and-mom-at-school-scaled.jpeg"
+                  alt="First slide"
+                />
+              </div>
+              <div class="carousel-item" style="height:100vh;">
+                <img
+                  height="100%"
+                  class="d-block"
+                  src="https://i0.wp.com/post.healthline.com/wp-content/uploads/2019/08/Parent_Children_1296x728-header-1296x728.jpg?w=1155&h=1528"
+                  alt="Second slide"
+                />
+              </div>
+              <div class="carousel-item" style="height:100vh;">
+                <img
+                  height="100%"
+                  class="d-block"
+                  src="https://post.medicalnewstoday.com/wp-content/uploads/2019/04/Child_Therapist_1200x628-facebook.jpg"
+                  alt="Third slide"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
+
+
+
