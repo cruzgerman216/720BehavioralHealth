@@ -5,6 +5,98 @@
 <% @cases.each do |c|%>
     Case Number
     <%= link_to "Case #{c.id}", case_path(c) %> <%=c.client.last_name%> <%=c.client.first_name%>
-
 <br>
 <%end%>
+
+<div class="container" style="height:100vh">
+  <div class="row" style="background-color:grey; height:8vh">
+    <div class="col-6">
+      720BehavioralHealth <ion-icon name="medkit" style="font-size:30px"></ion-icon>
+
+    </div>
+    <!--righthand column-->
+    <div class="col-6">
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <div class="dropdown">
+            <a class="btn  dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Hello <%=current_user.first_name%>!
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="#">User Account</a>
+              <a class="dropdown-item" href="#">Have an idea?</a>
+            <%= link_to "All cases", cases_path, class: "dropdown-item"%>
+            <%= link_to "All users", users_path, class: "dropdown-item"%>
+             <%= link_to "Logout", logout_path, method: "delete", class: "dropdown-item"%>
+
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!--end righthand column-->
+  </div>
+
+  <!--end of first row-->
+  <div class="row" style="height:4vh">
+    <div class="col-4">
+
+    </div>
+    <div class="col-4">
+        <%= Time.now.strftime("%A %B %M, %Y")%>
+    </div>
+    <div class="col-4 ">
+    <%if authorized?%>
+      <div class="nav justify-content-end">
+          <%= link_to "Add new Case", new_case_path%> <span class="material-icons">assignment_ind</span> <span>  </span>
+          <%= link_to "Add new Appointment", new_appointment_path%>  <span class="material-icons">note_add</span>
+      </div>
+    <%end%>
+    </div>
+  </div>
+
+  <div class="row container" >
+    <div class="container">
+
+          <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Case #</th>
+            <th scope="col">Client First</th>
+            <th scope="col">Client Last</th>
+            <th scope="col">PC First</th>
+            <th scope="col">PC Last</th>
+            <th scope="col">BI First</th>
+            <th scope="col">BI Last</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% @cases.each do |c|%>
+                          <tr>
+            <th scope="row"><%= link_to "Case #{c.id}", case_path(c) %> <%=c.client.last_name%> <%=c.client.first_name%></th>
+            <td><%=c.client.first_name%></td>
+            <td><%=c.client.last_name%></td>
+          </tr>
+            <%end%>
+        </tbody>
+      </table>
+
+
+
+        
+    </div>
+      </div>
+
+      <div class="row" style="height:4vh">
+          <div class="col-6">
+            </div>
+            <div class="col-6 ">
+            <%if authorized?%>
+              <div class="nav justify-content-end">
+                  <%= link_to "My Cases", user_cases_path(current_user)%>    <%= link_to "My Appointments", user_appointments_path(current_user)%>
+              </div>
+            <%end%>
+            </div>
+      </div>
+</div>
+

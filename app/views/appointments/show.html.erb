@@ -1,28 +1,105 @@
-<h1>Appointment</h1>
+<div class="container" style="height:100vh">
+  <div class="row" style="background-color:grey; height:8vh">
+    <div class="col-6">
+      720BehavioralHealth <ion-icon name="medkit" style="font-size:30px"></ion-icon>
 
-    <h2>Case #<%=@appointment.case.id%></h2>
-    <b>Client: <%=@appointment.case.client.first_name%> <%=@appointment.case.client.last_name%></b>
-    <br>
-    <b>Program Coordinator: <%=@appointment.case.pc.first_name%> <%=@appointment.case.pc.last_name%></b>
-    <br>
-    <b>Behavioral Therapist: <%=@appointment.case.bi.first_name%> <%=@appointment.case.bi.last_name%></b>
-    <br>
-    <h3>Time</h3>
-    <%=@appointment.from_time%> - <%=@appointment.to_time%>
-    <br>
-    <h3>Date</h3>
-    <%=@appointment.date%>
+    </div>
+    <!--righthand column-->
+    <div class="col-6">
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <div class="dropdown">
+            <a class="btn  dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Hello <%=current_user.first_name%>!
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="#">User Account</a>
+              <a class="dropdown-item" href="#">Have an idea?</a>
+            <%= link_to "All cases", cases_path, class: "dropdown-item"%>
+            <%= link_to "All users", users_path, class: "dropdown-item"%>
+             <%= link_to "Logout", logout_path, method: "delete", class: "dropdown-item"%>
 
-    <h4>Comments</h4>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!--end righthand column-->
+  </div>
 
-    <%@appointment.comments.each do |c|%>
-        <p><b><%=c.user.first_name%></b> <%=c.content%>
+  <!--end of first row-->
+  <div class="row" style="height:4vh">
+    <div class="col-4">
+
+    </div>
+    <div class="col-4">
+        <%= Time.now.strftime("%A %B %M, %Y")%>
+    </div>
+    <div class="col-4 ">
+    <%if authorized?%>
+      <div class="nav justify-content-end">
+          <%= link_to "Add new Case", new_case_path%> <span class="material-icons">assignment_ind</span> <span>  </span>
+          <%= link_to "Add new Appointment", new_appointment_path%>  <span class="material-icons">note_add</span>
+      </div>
     <%end%>
+    </div>
+  </div>
 
-<%= form_for Comment.new do |f|%>
-    <%= hidden_field_tag 'appointment_id', @appointment.id%>
-    <%= f.label :content %>
-    <%= f.text_area :content%>
-    <br>
-    <%= f.submit "Submit"%>
-<% end %>
+  <div class="row container" >
+    <div class="container">
+
+          <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Case #</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Time</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><%=@appointment.case.id%></th>
+            <td><%=@appointment.case.client.first_name%></td>
+            <td><%=@appointment.case.client.last_name%></td>
+            <td><%=@appointment.from_time.strftime("%I:%M %p")%> - <%=@appointment.to_time.strftime("%I:%M %p")  %></td>
+            <td><%=@appointment.date.strftime("%m/%d/%Y")%></td>
+          </tr>
+          <tr>
+        </tbody>
+      </table>
+
+<h2 style="text-align:center">Notes Section</h2>
+        <%@appointment.comments.each do |c|%>
+          <div class="row" >
+                <div class="col-3" style="border: 1px black solid;">
+                    <%=c.user.return_last_to_first_name%>
+                </div>
+                <div class="col-9" style="border: 1px black solid;">
+                    <%=c.content%>
+                </div>
+        </div>
+        <%end%>
+  
+        <div style="text-align:center">
+        <button>Save</button>
+        </div>
+
+        
+    </div>
+      </div>
+
+      <div class="row" style="height:4vh">
+          <div class="col-6">
+            </div>
+            <div class="col-6 ">
+            <%if authorized?%>
+              <div class="nav justify-content-end">
+                  <%= link_to "My Cases", user_cases_path(current_user)%>    <%= link_to "My Appointments", user_appointments_path(current_user)%>
+              </div>
+            <%end%>
+            </div>
+      </div>
+</div>
+

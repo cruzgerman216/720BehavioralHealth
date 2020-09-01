@@ -37,4 +37,15 @@ class Appointment < ApplicationRecord
         end
     end
 
+
+    def self.grab_days_of_month
+        d = Date.today
+        days_in_month = Time.days_in_month(d.month,d.year)
+        getfirstdaysofmonth = Date.new(d.year,d.month,1).cwday
+        days = ["Sun","Mon","Tues","Wed","Thur","Fri","Sat"]
+        dates = days + [nil] * getfirstdaysofmonth + (1..days_in_month).to_a
+        dates = dates + [nil]*(49-dates.count)
+        return dates
+    end
+
 end
