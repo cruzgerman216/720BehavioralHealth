@@ -1,15 +1,30 @@
+  <div class="row container" >
+    <div class="container">
 
-    <h2>Case #<%=@case.id%></h2>
-    <b>Client: <%=@case.client.first_name%> <%=@case.client.last_name%></b>
-    <br>
-    <b>Program Coordinator: <%=@case.pc.first_name%> <%=@case.pc.last_name%></b>
-    <br>
-    <b>Behavioral Therapist: <%=@case.bi.first_name%> <%=@case.bi.last_name%></b>
-    <br>
-
-    <p><%= link_to 'See all appointments', case_appointments_path(@case) %></p>
-    <p><%= link_to 'Add an appointment', new_case_appointment_path(@case) %></p>
-
-
-
-
+          <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Case #</th>
+            <th scope="col">Client First</th>
+            <th scope="col">Client Last</th>
+            <th scope="col">PC First</th>
+            <th scope="col">PC Last</th>
+            <th scope="col">BI First</th>
+            <th scope="col">BI Last</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row"><%= link_to "Case #{@case.id}", case_path(@case) %></th>
+                <td><%=@case.client.first_name%></td>
+                <td><%=@case.client.last_name%></td>
+                <td><%=@case.pc.first_name%></td>
+                <td><%=@case.pc.last_name%></td>
+                <td><%=@case.bi.first_name%></td>
+                <td><%=@case.bi.last_name%></td>
+          </tr>
+        </tbody>
+      </table>
+        
+    </div>
+      </div>

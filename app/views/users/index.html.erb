@@ -1,5 +1,106 @@
-<h3>All Users</h3>
-<%@users.each do |user|%>
-    <%= link_to user.return_last_to_first_name, user_appointments_path(user)%> <%=user.role%>
-    <br>
-<%end%>
+    <div class="row">
+    <div class="col-12" style="text-align:center">
+    Program Coordinators
+    <div>
+    <div>
+  <div class="row container" >
+    <div class="container">
+
+          <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Total Cases</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% User.all.each do |user|%>
+                <%if user.role == "program_coordinator"%>
+                        <tr>
+                          <td><%=user.first_name%></td>
+                          <td><%=user.last_name%></td>
+                          <td><%= link_to user.username, user_appointments_path(user)%></td>
+                          <td><%=user.email%></td>
+                          <td><%=user.cases.count%></td>
+                        </tr>
+                <%end%>
+            <%end%>
+        </tbody>
+      </table>
+    </div>
+      </div>
+
+
+        <div class="row">
+    <div class="col-12" style="text-align:center">
+    Behavioral Therapists
+    <div>
+    <div>
+  <div class="row container" >
+    <div class="container">
+
+          <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Total Cases</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% User.all.each do |user|%>
+                <%if user.role == "behavioral_therapist"%>
+                        <tr>
+                          <td><%=user.first_name%></td>
+                          <td><%=user.last_name%></td>
+                          <td><%= link_to user.username, user_appointments_path(user)%></td>
+                          <td><%=user.email%></td>
+                          <td><%=user.cases.count%></td>
+                        </tr>
+                <%end%>
+            <%end%>
+        </tbody>
+      </table>
+    </div>
+      </div>
+
+
+        <div class="row">
+    <div class="col-12" style="text-align:center">
+    Clients
+    <div>
+    <div>
+  <div class="row container" >
+    <div class="container">
+
+          <table class="table table-hover ">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Active</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% User.all.each do |user|%>
+                <%if user.role == "client"%>
+                        <tr>
+                          <td><%=user.first_name%></td>
+                          <td><%=user.last_name%></td>
+                          <td><%= link_to user.username, user_appointments_path(user)%></td>
+                          <td><%=user.email%></td>
+                          <td><%=user.cases.count==1 ? "active" : "inactive"%></td>
+                        </tr>
+                <%end%>
+            <%end%>
+        </tbody>
+      </table>
+    </div>
+      </div>

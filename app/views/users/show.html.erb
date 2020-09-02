@@ -1,31 +1,28 @@
-<h1> <%=@user.return_last_to_first_name%> </h1>
-Role: <%= @user.role%>
-
-<br>
-<% @user.cases.each do |c|%>
-
-<% c.appointments.order_by_date.each do |a|%>
-    Case #<%= a.case.id %>
-    <br>
-    <%= link_to "Appointment", appointment_path(a) %>
-    <br>
-    <b>Client: <%=a.case.client.first_name%> <%=a.case.client.last_name%></b>
-    <br>
-    <b>Program Coordinator: <%=a.case.pc.first_name%> <%=a.case.pc.last_name%></b>
-    <br>
-    <b>Behavioral Therapist: <%=a.case.bi.first_name%> <%=a.case.bi.last_name%></b>
-    <br>
-    <h3>Time</h3>
-    <%=a.from_time%> - <%=a.to_time%>
-    <br>
-    <h3>Date</h3>
-    <%=a.date%>
-
-    <h4>Comments</h4>
-
-    <%a.comments.each do |c|%>
-        <p><b><%=c.user.first_name%></b> <%=c.content%>
-        <%end%>
-    <%end%>
-
-<%end%>
+  <div class="row container" >
+    <div class="container">
+          <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Case #</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Time</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+    <%@user.appointments.each do |a|%>
+           <%if a.date.strftime("%d").to_i == Date.today.day.to_i%>
+          <tr>
+            <th scope="row"><%=a.case.id%></th>
+            <td><%=a.case.client.first_name%></td>
+            <td><%=a.case.client.last_name%></td>
+            <td><%=a.from_time.strftime("%I:%M %p")%> - <%=a.to_time.strftime("%I:%M %p")  %></td>
+            <td><%=a.date.strftime("%m/%d/%Y")%></td>
+          </tr>
+          <%end%>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+      </div>

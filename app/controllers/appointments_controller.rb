@@ -44,3 +44,4 @@ end
 
 
 
+# <%= link_to a.case.client.return_initials, new_case_appointment_path(a.case) %>

@@ -1,35 +1,45 @@
 
-<% if @case%>
-<h1>New Appointment for Case #<%=@case.id%></h1>
+ <div class="container">
 
-<%else%>
-<h1>New Appointment  </h1>
 
-<%= render partial: "layouts/errors", locals: {object:@appointment}%>
-
-<%end%>
 <%= form_for([@case,@appointment]) do |f| %>
-
     <%if !@case%>
-    <label>Case</label>
-        <%= f.select :case_id, options_for_select(Case.all.map{|k,v| [k.client.return_last_to_first_name,k.id]})%>
-
+        <div class="form-group row">
+       <label for="inputEmail3" class="col-sm-2 col-form-label">Case</label>
+            <div class="col-sm-10">
+               <%= f.select :case_id, options_for_select(Case.all.map{|k,v| [k.client.return_last_to_first_name,k.id]}),{}, class: "form-control "%>
+            </div>
+        </div>
     <%else%>
     <%= f.hidden_field :case_id%>
     <%end%>
-    <br>
-    <%= f.label :from_time %>
-    <%= f.time_field :from_time, value: "%H:%M", min: 'hh:mm:ss',max: 'hh:mm:ss'%>
-    <br>
+      <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Start Time</label>
+    <div class="col-sm-4">
+    <%= f.time_field :from_time, value: "%H:%M", min: 'hh:mm:ss',max: 'hh:mm:ss',  class: "input-group date form-control"%>
+    </div>
 
-    <%= f.label :to_time %>
-    <%= f.time_field :to_time, value: "%H:%M", min: 'hh:mm:ss',max: 'hh:mm:ss'%>
-    <br>
+        <label for="inputPassword3" class="col-sm-2 col-form-label">End Time</label>
+    <div class="col-sm-4">
+    <%= f.time_field :to_time, value: "%H:%M", min: 'hh:mm:ss',max: 'hh:mm:ss',  class: "input-group date form-control"%>
+    </div>
+  </div>
 
-    <%= f.label :date %>
-    <%= f.date_select :date %>
-    <br>
+  <div class="form-group row">
 
-    <%= f.submit %>
+  </div>
 
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Date</label>
+    <div class="col-sm-10">
+        <%= f.date_select :date,  class: " form-control"%>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-12", style="text-align:center;">
+      <%= f.submit "Create Appointment", class:"btn btn-primary", style: "text-align:center"%>
+    </div>
+  </div>
 <%end%>
+
+

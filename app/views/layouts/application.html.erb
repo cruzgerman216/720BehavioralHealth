@@ -41,16 +41,86 @@
   <body>
 
     <div> 
-          <% if logged_in?%>
-            <%if authorized?%>
-          <%end%>
-          <%else%>
+      <% if logged_in?%>
+
+<div class="container" style="height:100vh; max-width: 1170px; color:black;">
+  <div class="row" style="background-color:#eceff5; height:8vh; padding-top:10px">
+    <div class="col-6" >
+  <%= image_tag("logo.png")%>
+    </div>
+    <!--righthand column-->
+    <div class="col-6" >
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <div class="dropdown" >
+            <a class="btn  dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Hello <%=current_user.first_name%>!
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="#">User Account</a>
+              <a class="dropdown-item" href="#">Have an idea?</a>
+            <%= link_to "All cases", cases_path, class: "dropdown-item"%>
+            <%= link_to "All users", users_path, class: "dropdown-item"%>
+             <%= link_to "Logout", logout_path, method: "delete", class: "dropdown-item"%>
+
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!--end righthand column-->
+   </div>
+
+    <!--end of first row-->
+    <div class="row" style="height:4vh">
+      <div class="col-4">
 
       </div>
+      <div class="col-4">
+          <%= Time.now.strftime("%A %B %M, %Y")%>
+      </div>
+      <div class="col-4 ">
+      <%if authorized?%>
+        <div class="nav justify-content-end">
+            <%= link_to new_case_path, :style=>'margin-right: 25px;',:action => 'go' do %>
+            New Case <span style="color:blue" class="material-icons">note_add</span> 
+            <%end%>
+            <%= link_to new_appointment_path, :action => 'go' do %>
+                New Appointment <span style="color:blue" class="material-icons"> group_add</span> 
+            <%end%>
+        </div>
       <%end%>
+      </div>
     </div>
 
     <%= yield %>
+  
+
+      <div class="row" style="background-color:#eceff5; height:4vh">
+          <div class="col-6">
+          <span style="color:blue" class="material-icons">lock_outline</span> locked through: <%=Date.today%> by Staff
+            </div>
+            <div class="col-6 ">
+            <%if authorized?%>
+              <div class="nav justify-content-end">
+                    <%= link_to user_cases_path(current_user), :style=>'margin-right: 25px;',:action => 'go' do %>
+                      <span style="color:blue" class="material-icons">assignment_ind</span> Cases
+                    <%end%>
+                     <%= link_to user_appointments_path(current_user), :action => 'go' do %>
+                        <span style="color:blue" class="material-icons">schedule</span> Appointments
+                    <%end%>
+              </div>
+            <%end%>
+            </div>
+      </div>
+</div>
+ 
+      <%else%>
+<%= yield %>
+      <%end%>
+    </div>
+    
+    
 
         <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

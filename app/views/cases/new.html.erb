@@ -1,28 +1,38 @@
-<h1>New Case</h1>
 
 <%= render partial: "layouts/errors", locals: {object:@case}%>
-
-<%# make all the User.all.map scopes for grabbing programming coordinators, bis and clients%>
-<%= form_for(@case) do |f| %>
-    <label>Available Program Coordinators</label>
-        <%= f.select :pc_id, options_for_select(User.all.map{|k,v| 
+ 
+ <div class="container">
+ <%= form_for(@case) do |f| %>
+  <div class="form-group row">
+    <label for="inputEmail3" class="col-sm-2 col-form-label">Program Coordinators</label>
+    <div class="col-sm-10">
+              <%= f.select :pc_id, options_for_select(User.all.map{|k,v| 
         if k.program_coordinator?
-            [k.first_name,k.id] 
-        end }.compact)%>
-    <br>
-
-    <label>Available Behavioral Therapist</label>
-        <%= f.select :bi_id, options_for_select(User.all.map{|k,v| 
+            [k.return_last_to_first_name,k.id] 
+        end }.compact),{}, class: "form-control form-control-lg"%>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Behavioral Therapists</label>
+    <div class="col-sm-10">
+             <%= f.select :bi_id, options_for_select(User.all.map{|k,v| 
         if k.behavioral_therapist?
-            [k.first_name,k.id] 
-        end }.compact)%>
-    <br>
-
-        <label>Available Client</label>
+            [k.return_last_to_first_name,k.id] 
+        end }.compact),{}, class: "form-control form-control-lg"%>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label for="inputPassword3" class="col-sm-2 col-form-label">Client</label>
+    <div class="col-sm-10">
         <%= f.select :client_id, options_for_select(User.all.map{|k,v| 
         if k.client? && k.cases.count == 0
-            [k.first_name,k.id] 
-        end }.compact)%>
-    <br>
-    <%= f.submit "Create Case"%>
-<% end%>
+            [k.return_last_to_first_name,k.id] 
+        end }.compact),{}, class: "form-control form-control-lg"%>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-12", style="text-align:center;">
+      <%= f.submit "Create Case", class:"btn btn-primary", style: "text-align:center"%>
+    </div>
+  </div>
+<%end%>
