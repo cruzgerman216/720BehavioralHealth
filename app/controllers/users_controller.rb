@@ -1,7 +1,4 @@
 class UsersController < ApplicationController
-    # before_action :redirect_if_not_logged_in
-    # before_action :redirect_if_not_authorized_or_owner
-
     def new 
         @user = User.new
     end

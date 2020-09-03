@@ -1,6 +1,5 @@
 class AppointmentsController < ApplicationController
      before_action :redirect_if_not_logged_in
-
     def new 
         if params[:case_id] && @case = Case.find_by_id(params[:case_id])
             @appointment = @case.appointments.build
@@ -13,8 +12,6 @@ class AppointmentsController < ApplicationController
         client_case =  Case.find(params[:appointment][:case_id])
         @appointment = client_case.appointments.build(appointment_params)
         if @appointment.save 
-            @appointment.comments.build(content:"",user:client_case.bi).save
-            @appointment.comments.build(content:"",user: client_case.client).save
             redirect_to case_appointments_path(@appointment.case)
         else
             render :new
@@ -41,7 +38,3 @@ class AppointmentsController < ApplicationController
         params.require(:appointment).permit(:from_time, :to_time, :date, :case_id)
     end
 end
-
-
-
-# <%= link_to a.case.client.return_initials, new_case_appointment_path(a.case) %>

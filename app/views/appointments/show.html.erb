@@ -2,7 +2,7 @@
     <div class="container">
 
           <table class="table">
-        <thead class="thead-dark">
+        <thead >
           <tr>
             <th scope="col">Case #</th>
             <th scope="col">First</th>
@@ -34,9 +34,12 @@
                 </div>
         </div>
         <%end%>
-  
-        <div style="text-align:center">
-        <button>Save</button>
-        </div>
+      <%= form_for Comment.new do |f|%>	
+        <%= hidden_field_tag 'appointment_id', @appointment.id%>	
+        <label>Add Comment</label>
+        <%= f.text_area :content, class: "form-control"%>	
+        <br>	
+        <%= f.submit "Submit"%>	
+    <% end %> 
     </div>
       </div>

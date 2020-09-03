@@ -15,12 +15,13 @@ class ApplicationController < ActionController::Base
             !!session[:user_id]
         end
 
+
         def redirect_if_not_authorized_or_owner
-            redirect_to '/' if current_user.id != params[:id].to_i unless authorized?
+            redirect_to users_path(current_us) if current_user.id != params[:id].to_i unless authorized?
         end
 
         def redirect_if_not_authorized 
-            redirect_to '/' if !authorized? 
+            redirect_to users_path(current_us) if !authorized? 
         end
 
         def authorized?

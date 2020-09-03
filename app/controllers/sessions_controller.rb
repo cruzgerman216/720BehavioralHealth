@@ -30,11 +30,12 @@ class SessionsController < ApplicationController
             user.password = SecureRandom.hex(10)
             user.role = "client"
         end
+
         if @user.save 
             session[:user_id] = @user.id 
             redirect_to user_path(@user)
         else 
-            redirect_to '/'
+            redirect_to '/login'
         end
     end
 

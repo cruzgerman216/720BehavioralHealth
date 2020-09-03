@@ -1,5 +1,4 @@
 class CasesController < ApplicationController
-
     def new 
         @case = Case.new
     end
@@ -7,8 +6,12 @@ class CasesController < ApplicationController
         @case = Case.find(params[:id])
     end
 
+    # check 
     def create 
-        @case = Case.new(case_params)
+        pc = User.find_by_id(case_params[:pc_id])
+        bi = User.find_by_id(case_params[:bi_id])
+        client = User.find_by_id(case_params[:client_id])
+        @case = Case.new(pc: pc, bi: bi, client: client)
         if @case.save 
             case_params.each{ |k,v|
                 Casebi.create(case: @case,user_id:v.to_i)

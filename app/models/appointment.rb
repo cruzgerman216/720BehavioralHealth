@@ -3,14 +3,16 @@ class Appointment < ApplicationRecord
 
     belongs_to :case
     has_many :comments
-    has_many :users, through: :comments
-    
+    # allows me to see who has commented my posts and how many times
+    has_many :commented_users, through: :comments, source: :user
+
     validates :from_time, presence: true
     validates :to_time, presence: true
     validates :date, presence: true
     validate :from_to_error
     validate :overlapping_other_appointments
     validate :exceeded_limited_hours
+
 
     def from_to_error
         if self.from_time.strftime("%k:%M") >= self.to_time.strftime("%k:%M") 

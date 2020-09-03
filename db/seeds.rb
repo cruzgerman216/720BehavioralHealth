@@ -21,13 +21,8 @@ pc = User.create( email: "Sarah@email.com",  username: "sarah3252",first_name: "
 bi2 = User.create(email: "mike64562@email.com", first_name: "Mike", username: "mike5354",last_name: "Lopez", password: "test", role:1)
 
 case1 = Case.create(pc: pc, client: c, bi: bi) 
-# [c,pc,bi].each{ |user|
-# Casebi.create(case: case1,user_id: user.id)
-# }
 case2 = Case.create(pc: pc, client: c2, bi: bi) 
-# [c2,pc,bi].each{ |user|
-# Casebi.create(case: case2,user_id: user.id)
-# }
+
  a = case1.appointments.create(case: case1, from_time: Time.new, to_time: Time.new, date:Date.new)
 
 a2 = case2.appointments.create(case: case2, from_time: Time.new, to_time: Time.new, date:Date.new)
